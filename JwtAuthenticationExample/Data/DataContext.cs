@@ -15,5 +15,8 @@ namespace JwtAuthenticationExample.Data
         }
 
         public DbSet<Character> Characters { get; set; }
+
+        // Con EF otteniamo l'accesso ai dati nel DB
+        public DbSet<User> Users { get; set; }
     }
 }

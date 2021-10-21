@@ -1,5 +1,6 @@
 ﻿using JwtAuthenticationExample.Models;
 using JwtAuthenticationExample.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,10 @@ using System.Threading.Tasks;
 
 namespace JwtAuthenticationExample.Controllers
 {
+    // Voglio proteggere solo questa parte di API
+
+    [Authorize] // solo coloro che mostrano di essere autenticati posso usare i metodi 
+    // di questo controller
     [Route("[controller]")]
     [ApiController]
     public class CharactersController : ControllerBase
@@ -21,36 +26,11 @@ namespace JwtAuthenticationExample.Controllers
             _service = service;
         }
 
-        // GET: api/<CharactersController>
         [HttpGet]
         public IEnumerable<Character> Get()
         {
             return _service.Characters();
         }
 
-        // GET api/<CharactersController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST api/<CharactersController>
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
-
-        // PUT api/<CharactersController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<CharactersController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
     }
 }
