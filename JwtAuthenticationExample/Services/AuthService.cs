@@ -27,8 +27,10 @@ namespace JwtAuthenticationExample.Services
         // per risultare autorizzato nelle varie parti protette della nostra API 
         public string Login(string username, string password)
         {
+            // Vado a cercare nel DbSet degli utenti, l'utente con lo stesso username
             var user = _ctx.Users.FirstOrDefault(user => user.Username == username);
-
+            
+            // Se non lo trovo, vuol dire che mi ha fornito un username inesistente
             if (user is null)
             {
                 // Se non esiste alcun utente con quell'username
@@ -37,6 +39,9 @@ namespace JwtAuthenticationExample.Services
                 // Per praticità uso un'eccezione generica, ma si potrebbe
                 // pensare di adottare un'eccezione custom più descrittiva
             }
+
+            // Se sono arrivato fino a qua, vuol dire che l'utente con quello specifico 
+            // username esiste, allora faccio un check sulla sua password
 
             // Faccio un check sulla password inserita dall'utente
             // parangonando il valora hashed con quello salvato in DB

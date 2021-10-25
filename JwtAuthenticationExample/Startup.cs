@@ -55,6 +55,8 @@ namespace JwtAuthenticationExample
                     var secret = "Super secret very very long long men pikachu";
                     // Questo secret è importante per validare il token dell'utente
                     var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secret));
+                    // Stiamo settando la proprietà dell'oggetto jwtbeareroptions
+                    // l'oggetto dove ci sono i parametri per la verifica dei token
                     opt.TokenValidationParameters = new TokenValidationParameters
                     {
                         ValidateIssuerSigningKey = true,
@@ -63,6 +65,10 @@ namespace JwtAuthenticationExample
                         ValidateAudience = false
                     };
                 });
+            // Grazie a questa configurazione, il framework andrà a controllare
+            // i token qualora le chiamata andassero su indirizzo dove
+            // ci sono dei controller a cui abbiamo assegnato l'annotazione
+            // Authorize
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
